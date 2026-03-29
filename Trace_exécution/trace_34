@@ -1,0 +1,83 @@
+=== Traitement d'automates finis ===
+
+Numero d'automate (ou 'fin') : 34
+
+Alphabet : ['a', 'b']
+Etats    : [0, 1, 2, 3, 4, 5, 6]
+Initiaux : [0]
+Terminaux: [6]
+
+    Etat a   b    E  
+--------------------
+E   0   --  --  1,4 
+    1   2   --   2  
+    2   --  3    -- 
+    3   --  --  2,6 
+    4   --  5    -- 
+    5   --  --  4,6 
+S   6   --  --   -- 
+--- Tests ---
+Deterministe : Non - Etat 0 a plusieurs transitions par 'E'
+Standard     : Oui
+Complet      : Non - Etat 0 n'a pas de transition par 'a'
+
+
+--- Automate deterministe complet ---
+
+Alphabet : ['a', 'b']
+Etats    : [0, 1, 2, 3, 4]
+Initiaux : [0]
+Terminaux: [2, 3]
+
+    Etat a  b 
+-------------
+E   0   1  2 
+    1   4  3 
+S   2   4  2 
+S   3   4  3 
+    4   4  4 
+
+--- Minimisation ---
+Partition 0 : [[2, 3], [0, 1, 4]]
+Partition 1 : [[2, 3], [0, 1], [4]]
+Partition 2 : [[2, 3], [0], [1], [4]]
+Partition finale : [[2, 3], [0], [1], [4]]
+
+--- Correspondance etats minimaux ---
+  Etat 2 (minimal) = [2, 3] (AFDC)
+  Etat 0 (minimal) = [0] (AFDC)
+  Etat 1 (minimal) = [1] (AFDC)
+  Etat 4 (minimal) = [4] (AFDC)
+--- Automate minimal ---
+
+Alphabet : ['a', 'b']
+Etats    : [0, 1, 2, 4]
+Initiaux : [0]
+Terminaux: [2]
+
+    Etat a  b 
+-------------
+E   0   1  2 
+    1   4  2 
+S   2   4  2 
+    4   4  4 
+
+--- Reconnaissance de mots (tapez 'fin' pour arreter) ---
+Mot : abab
+  Mot 'abab' : NON
+Mot : baba
+  Mot 'baba' : NON
+Mot : aaa
+  Mot 'aaa' : NON
+Mot : aab
+  Mot 'aab' : NON
+Mot : bba
+  Mot 'bba' : NON
+Mot : a
+  Mot 'a' : NON
+Mot : 
+  Mot '' : NON
+Mot : bab
+  Mot 'bab' : NON
+Mot : bba
+  Mot 'bba' : NON
