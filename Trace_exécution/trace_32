@@ -1,0 +1,96 @@
+=== Traitement d'automates finis ===
+
+Numero d'automate (ou 'fin') : 32
+
+Alphabet : ['a', 'b', 'c']
+Etats    : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+Initiaux : [0]
+Terminaux: [21]
+
+    Etat a   b   c     E   
+---------------------------
+E   0    --  --  --   1,10 
+    1    --  --  --   2,6  
+    2    --  --  --   3,5  
+    3    --  4   --    --  
+    4    --  --  --   3,5  
+    5    --  --  --    8   
+    6    7   --  --    --  
+    7    --  --  --    8   
+    8    --  --  9     --  
+    9    --  --  --    21  
+    10   --  --  --  11,15 
+    11   --  --  --  12,14 
+    12   13  --  --    --  
+    13   --  --  --  12,14 
+    14   --  --  --    17  
+    15   --  16  --    --  
+    16   --  --  --    17  
+    17   --  --  --  18,20 
+    18   --  --  19    --  
+    19   --  --  --  18,20 
+    20   --  --  --    21  
+S   21   --  --  --    --  
+--- Tests ---
+Deterministe : Non - Etat 0 a plusieurs transitions par 'E'
+Standard     : Oui
+Complet      : Non - Etat 0 n'a pas de transition par 'a'
+
+
+--- Automate deterministe complet ---
+
+Alphabet : ['a', 'b', 'c']
+Etats    : [0, 1, 2, 3, 4, 5, 6, 7, 8]
+Initiaux : [0]
+Terminaux: [0, 1, 2, 3, 4, 6, 7]
+
+    Etat a  b  c 
+----------------
+ES  0   1  2  3 
+S   1   4  8  3 
+S   2   8  5  3 
+S   3   8  8  6 
+S   4   4  8  6 
+    5   8  5  7 
+S   6   8  8  6 
+S   7   8  8  8 
+    8   8  8  8 
+
+--- Minimisation ---
+Partition 0 : [[0, 1, 2, 3, 4, 6, 7], [5, 8]]
+Partition 1 : [[0], [1, 4], [2, 3, 6], [7], [5], [8]]
+Partition 2 : [[0], [1, 4], [2], [3, 6], [7], [5], [8]]
+Partition finale : [[0], [1, 4], [2], [3, 6], [7], [5], [8]]
+
+--- Correspondance etats minimaux ---
+  Etat 0 (minimal) = [0] (AFDC)
+  Etat 1 (minimal) = [1, 4] (AFDC)
+  Etat 2 (minimal) = [2] (AFDC)
+  Etat 3 (minimal) = [3, 6] (AFDC)
+  Etat 7 (minimal) = [7] (AFDC)
+  Etat 5 (minimal) = [5] (AFDC)
+  Etat 8 (minimal) = [8] (AFDC)
+--- Automate minimal ---
+
+Alphabet : ['a', 'b', 'c']
+Etats    : [0, 1, 2, 3, 5, 7, 8]
+Initiaux : [0]
+Terminaux: [0, 1, 2, 3, 7]
+
+    Etat a  b  c 
+----------------
+ES  0   1  2  3 
+S   1   1  8  3 
+S   2   8  5  3 
+S   3   8  8  3 
+    5   8  5  7 
+S   7   8  8  8 
+    8   8  8  8 
+
+--- Reconnaissance de mots (tapez 'fin' pour arreter) ---
+Mot : abab
+  Mot 'abab' : NON
+Mot : baba
+  Mot 'baba' : NON
+Mot : aaa
+  Mot 'aaa' : OUI
