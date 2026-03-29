@@ -1,0 +1,90 @@
+=== Traitement d'automates finis ===
+
+Numero d'automate (ou 'fin') : 24
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 4]
+Initiaux : [1]
+Terminaux: [0]
+
+    Etat a   b   c   d
+----------------------
+S   0   --  --  --  0
+E   1   2   3   4   0
+    2   2   3   4   0
+    3   --  3   4   0
+    4   --  --  4   0
+
+--- Tests ---
+Deterministe : Oui
+Standard     : Oui
+Complet      : Non - Etat 0 n'a pas de transition par 'a'
+
+
+--- Correspondance etats ---
+  Nouvel etat 0 = [1]
+  Nouvel etat 1 = [2]
+  Nouvel etat 2 = [3]
+  Nouvel etat 3 = [4]
+  Nouvel etat 4 = [0]
+  Nouvel etat 5 = [Poubelle]
+
+--- Automate deterministe complet ---
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 4, 5]
+Initiaux : [0]
+Terminaux: [4]
+
+    Etat a  b  c  d
+-------------------
+E   0   1  2  3  4
+    1   1  2  3  4
+    2   5  2  3  4
+    3   5  5  3  4
+S   4   5  5  5  4
+    5   5  5  5  5
+
+
+--- Minimisation ---
+Partition 0 : [[4], [0, 1, 2, 3, 5]]
+Partition 1 : [[4], [0, 1, 2, 3], [5]]
+Partition 2 : [[4], [0, 1], [2], [3], [5]]
+Partition finale : [[4], [0, 1], [2], [3], [5]]
+
+--- Correspondance etats minimaux ---
+  Etat 4 (minimal) = [4] (AFDC)
+  Etat 0 (minimal) = [0, 1] (AFDC)
+  Etat 2 (minimal) = [2] (AFDC)
+  Etat 3 (minimal) = [3] (AFDC)
+  Etat 5 (minimal) = [5] (AFDC)
+--- Automate minimal ---
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 2, 3, 4, 5]
+Initiaux : [0]
+Terminaux: [4]
+
+    Etat a  b  c  d
+-------------------
+E   0   0  2  3  4
+    2   5  2  3  4
+    3   5  5  3  4
+S   4   5  5  5  4
+    5   5  5  5  5
+
+
+--- Reconnaissance de mots (tapez 'fin' pour arreter) ---
+Mot : babab
+  Mot 'babab' : NON
+Mot : aaa
+  Mot 'aaa' : NON
+Mot : bcd
+  Mot 'bcd' : OUI
+Mot : ccba
+  Mot 'ccba' : NON
+Mot : cba
+  Mot 'cba' : NON
+Mot : cbd
+  Mot 'cbd' : NON
+Mot :

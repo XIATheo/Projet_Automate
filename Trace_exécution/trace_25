@@ -1,0 +1,133 @@
+=== Traitement d'automates finis ===
+
+Numero d'automate (ou 'fin') : 25
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 4]
+Initiaux : [1]
+Terminaux: [0]
+
+    Etat  a    b    c    d
+---------------------------
+S   0    --   --   --   --
+E   1   1,2   3    4    0
+    2    --  2,3   4    0
+    3    --   --  3,4   0
+    4    --   --   --  0,4
+
+--- Tests ---
+Deterministe : Non - Etat 1 a plusieurs transitions par 'a'
+Standard     : Non - Une transition arrive sur l'état initial (1)
+Complet      : Non - Etat 0 n'a pas de transition par 'a'
+
+Voulez-vous standardiser ? (o/n) : o
+
+--- Automate standardise ---
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 4, 5]
+Initiaux : [5]
+Terminaux: [0]
+
+    Etat  a    b    c    d
+---------------------------
+S   0    --   --   --   --
+    1   1,2   3    4    0
+    2    --  2,3   4    0
+    3    --   --  3,4   0
+    4    --   --   --  0,4
+E   5   1,2   3    4    0
+
+
+--- Correspondance etats ---
+  Nouvel etat 0 = [5]
+  Nouvel etat 1 = [1, 2]
+  Nouvel etat 2 = [3]
+  Nouvel etat 3 = [4]
+  Nouvel etat 4 = [0]
+  Nouvel etat 5 = [2, 3]
+  Nouvel etat 6 = [3, 4]
+  Nouvel etat 7 = [0, 4]
+  Nouvel etat 8 = [Poubelle]
+
+--- Automate deterministe complet ---
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 4, 5, 6, 7, 8]
+Initiaux : [0]
+Terminaux: [4, 7]
+
+    Etat a  b  c  d
+-------------------
+E   0   1  2  3  4
+    1   1  5  3  4
+    2   8  8  6  4
+    3   8  8  8  7
+S   4   8  8  8  8
+    5   8  5  6  4
+    6   8  8  6  7
+S   7   8  8  8  7
+    8   8  8  8  8
+
+
+--- Minimisation ---
+Partition 0 : [[4, 7], [0, 1, 2, 3, 5, 6, 8]]
+Partition 1 : [[4], [7], [0, 1, 2, 3, 5, 6], [8]]
+Partition 2 : [[4], [7], [0, 1], [2], [3], [5], [6], [8]]
+Partition 3 : [[4], [7], [0], [1], [2], [3], [5], [6], [8]]
+Partition finale : [[4], [7], [0], [1], [2], [3], [5], [6], [8]]
+
+--- Correspondance etats minimaux ---
+  Etat 4 (minimal) = [4] (AFDC)
+  Etat 7 (minimal) = [7] (AFDC)
+  Etat 0 (minimal) = [0] (AFDC)
+  Etat 1 (minimal) = [1] (AFDC)
+  Etat 2 (minimal) = [2] (AFDC)
+  Etat 3 (minimal) = [3] (AFDC)
+  Etat 5 (minimal) = [5] (AFDC)
+  Etat 6 (minimal) = [6] (AFDC)
+  Etat 8 (minimal) = [8] (AFDC)
+--- Automate minimal ---
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 4, 5, 6, 7, 8]
+Initiaux : [0]
+Terminaux: [4, 7]
+
+    Etat a  b  c  d
+-------------------
+E   0   1  2  3  4
+    1   1  5  3  4
+    2   8  8  6  4
+    3   8  8  8  7
+S   4   8  8  8  8
+    5   8  5  6  4
+    6   8  8  6  7
+S   7   8  8  8  7
+    8   8  8  8  8
+
+
+--- Reconnaissance de mots (tapez 'fin' pour arreter) ---
+Mot : baba
+  Mot 'baba' : NON
+Mot : abaab
+  Mot 'abaab' : NON
+Mot : aaa
+  Mot 'aaa' : NON
+Mot : bb
+  Mot 'bb' : NON
+Mot : aa
+  Mot 'aa' : NON
+Mot : b
+  Mot 'b' : NON
+Mot : aababa
+  Mot 'aababa' : NON
+Mot : bb
+  Mot 'bb' : NON
+Mot : ac
+  Mot 'ac' : NON
+Mot : cabb
+  Mot 'cabb' : NON
+Mot : abcd
+  Mot 'abcd' : OUI
+Mot :

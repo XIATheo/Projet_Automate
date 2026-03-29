@@ -1,0 +1,103 @@
+=== Traitement d'automates finis ===
+
+Numero d'automate (ou 'fin') : 21
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3]
+Initiaux : [1]
+Terminaux: [1]
+
+    Etat a   b   c   d
+-----------------------
+    0   --  --  --  1
+ES  1   2   --  --  --
+    2   --  3   --  --
+    3   --  --  0   --
+
+--- Tests ---
+Deterministe : Oui
+Standard     : Non - Une transition arrive sur l'état initial (1)
+Complet      : Non - Etat 0 n'a pas de transition par 'a'
+
+Voulez-vous standardiser ? (o/n) : o
+
+--- Automate standardise ---
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 4]
+Initiaux : [4]
+Terminaux: [1, 4]
+
+    Etat a   b   c   d
+-----------------------
+    0   --  --  --  1
+S   1   2   --  --  --
+    2   --  3   --  --
+    3   --  --  0   --
+ES  4   2   --  --  --
+
+
+--- Correspondance etats ---
+  Nouvel etat 0 = [4]
+  Nouvel etat 1 = [2]
+  Nouvel etat 2 = [3]
+  Nouvel etat 3 = [0]
+  Nouvel etat 4 = [1]
+  Nouvel etat 5 = [Poubelle]
+
+--- Automate deterministe complet ---
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 4, 5]
+Initiaux : [0]
+Terminaux: [0, 4]
+
+    Etat a  b  c  d
+-------------------
+ES  0   1  5  5  5
+    1   5  2  5  5
+    2   5  5  3  5
+    3   5  5  5  4
+S   4   1  5  5  5
+    5   5  5  5  5
+
+
+--- Minimisation ---
+Partition 0 : [[0, 4], [1, 2, 3, 5]]
+Partition 1 : [[0, 4], [1, 2, 5], [3]]
+Partition 2 : [[0, 4], [1, 5], [2], [3]]
+Partition 3 : [[0, 4], [1], [5], [2], [3]]
+Partition finale : [[0, 4], [1], [5], [2], [3]]
+
+--- Correspondance etats minimaux ---
+  Etat 0 (minimal) = [0, 4] (AFDC)
+  Etat 1 (minimal) = [1] (AFDC)
+  Etat 5 (minimal) = [5] (AFDC)
+  Etat 2 (minimal) = [2] (AFDC)
+  Etat 3 (minimal) = [3] (AFDC)
+--- Automate minimal ---
+
+Alphabet : ['a', 'b', 'c', 'd']
+Etats    : [0, 1, 2, 3, 5]
+Initiaux : [0]
+Terminaux: [0]
+
+    Etat a  b  c  d
+-------------------
+ES  0   1  5  5  5
+    1   5  2  5  5
+    2   5  5  3  5
+    3   5  5  5  0
+    5   5  5  5  5
+
+
+--- Reconnaissance de mots (tapez 'fin' pour arreter) ---
+Mot : abbaa
+  Mot 'abbaa' : NON
+Mot : aaa
+  Mot 'aaa' : NON
+Mot : ababa
+  Mot 'ababa' : NON
+Mot : abcd
+  Mot 'abcd' : OUI
+Mot :

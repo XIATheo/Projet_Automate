@@ -1,0 +1,86 @@
+=== Traitement d'automates finis ===
+
+Numero d'automate (ou 'fin') : 29
+
+Alphabet : ['a']
+Etats    : [0, 1, 2, 3, 4, 5]
+Initiaux : [1]
+Terminaux: [0, 3]
+
+    Etat  a
+------------
+S   0    4
+E   1   2,4
+    2    3
+S   3   0,2
+    4   3,5
+    5    0
+
+--- Tests ---
+Deterministe : Non - Etat 1 a plusieurs transitions par 'a'
+Standard     : Oui
+Complet      : Oui
+
+
+--- Correspondance etats ---
+  Nouvel etat 0 = [1]
+  Nouvel etat 1 = [2, 4]
+  Nouvel etat 2 = [3, 5]
+  Nouvel etat 3 = [0, 2]
+  Nouvel etat 4 = [3, 4]
+  Nouvel etat 5 = [0, 2, 3, 5]
+  Nouvel etat 6 = [0, 2, 3, 4]
+  Nouvel etat 7 = [0, 2, 3, 4, 5]
+
+--- Automate deterministe complet ---
+
+Alphabet : ['a']
+Etats    : [0, 1, 2, 3, 4, 5, 6, 7]
+Initiaux : [0]
+Terminaux: [2, 3, 4, 5, 6, 7]
+
+    Etat a
+----------
+E   0   1
+    1   2
+S   2   3
+S   3   4
+S   4   5
+S   5   6
+S   6   7
+S   7   7
+
+
+--- Minimisation ---
+Partition 0 : [[2, 3, 4, 5, 6, 7], [0, 1]]
+Partition 1 : [[2, 3, 4, 5, 6, 7], [0], [1]]
+Partition finale : [[2, 3, 4, 5, 6, 7], [0], [1]]
+
+--- Correspondance etats minimaux ---
+  Etat 2 (minimal) = [2, 3, 4, 5, 6, 7] (AFDC)
+  Etat 0 (minimal) = [0] (AFDC)
+  Etat 1 (minimal) = [1] (AFDC)
+--- Automate minimal ---
+
+Alphabet : ['a']
+Etats    : [0, 1, 2]
+Initiaux : [0]
+Terminaux: [2]
+
+    Etat a
+----------
+E   0   1
+    1   2
+S   2   2
+
+
+--- Reconnaissance de mots (tapez 'fin' pour arreter) ---
+Mot : babaab
+  Mot 'babaab' : NON
+Mot : ababaa
+  Mot 'ababaa' : NON
+Mot : bb
+  Mot 'bb' : NON
+Mot : aa
+  Mot 'aa' : OUI
+Mot :
