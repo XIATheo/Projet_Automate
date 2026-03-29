@@ -1,9 +1,23 @@
+def epsilon_fermeture(etats, transitions):
+    fermeture = set(etats)
+    pile = list(etats)
+    while pile:
+        e = pile.pop()
+        for (dep, sym, arr) in transitions:
+            if dep == e and sym == 'E':
+                if arr not in fermeture:
+                    fermeture.add(arr)
+                    pile.append(arr)
+    return fermeture
+
+
 def determiniser(A):
     alphabet = A['alphabet']
-    initial = tuple(sorted(A['initiaux']))
+    # L'état initial est la fermeture epsilon des initiaux
+    depart = tuple(sorted(epsilon_fermeture(A['initiaux'], A['transitions'])))
 
-    a_traiter = [initial]
-    vus = {initial: 0}
+    a_traiter = [depart]
+    vus = {depart: 0}
     compteur = 1
     transitions_new = []
     besoin_poubelle = False
@@ -13,49 +27,33 @@ def determiniser(A):
         idx_courant = vus[courant]
 
         for sym in alphabet:
-            dest = set()
+            # 1. Trouver les destinations directes par la lettre
+            dest_directe = set()
             for e in courant:
                 for (dep, s, arr) in A['transitions']:
                     if dep == e and s == sym:
-                        dest.add(arr)
+                        dest_directe.add(arr)
 
-            if not dest:
+            # 2. Appliquer la fermeture epsilon sur ces destinations
+            if not dest_directe:
                 besoin_poubelle = True
-                transitions_new.append((idx_courant, sym, -1))  # -1 = poubelle
+                transitions_new.append((idx_courant, sym, -1))
             else:
-                dest_tuple = tuple(sorted(dest))
-                if dest_tuple not in vus:
-                    vus[dest_tuple] = compteur
+                fermeture = tuple(sorted(epsilon_fermeture(dest_directe, A['transitions'])))
+                if fermeture not in vus:
+                    vus[fermeture] = compteur
                     compteur += 1
-                    a_traiter.append(dest_tuple)
-                transitions_new.append((idx_courant, sym, vus[dest_tuple]))
+                    a_traiter.append(fermeture)
+                transitions_new.append((idx_courant, sym, vus[fermeture]))
 
-    etats_new = list(range(compteur))
-
-    # Ajouter état poubelle si besoin
+    # Finalisation (poubelle et terminaux)
+    etats_new = list(range(compteur + (1 if besoin_poubelle else 0)))
     if besoin_poubelle:
-        idx_p = compteur
-        etats_new.append(idx_p)
-        # Remplacer -1 par idx_p
-        transitions_new = [(d, s, idx_p if a == -1 else a) for (d, s, a) in transitions_new]
-        # Boucles sur poubelle
-        for sym in alphabet:
-            transitions_new.append((idx_p, sym, idx_p))
+        p_idx = compteur
+        transitions_new = [(d, s, p_idx if a == -1 else a) for (d, s, a) in transitions_new]
+        for s in alphabet: transitions_new.append((p_idx, s, p_idx))
 
-    # États terminaux
-    terminaux_new = [vus[tup] for tup in vus if any(e in A['terminaux'] for e in tup)]
+    terminaux_new = [idx for states, idx in vus.items() if any(e in A['terminaux'] for e in states)]
 
-    # Correspondance
-    print("\n--- Correspondance etats ---")
-    for tup, idx in sorted(vus.items(), key=lambda x: x[1]):
-        print(f"  Nouvel etat {idx} = {list(tup)}")
-    if besoin_poubelle:
-        print(f"  Nouvel etat {compteur} = [Poubelle]")
-
-    return {
-        'alphabet': alphabet,
-        'etats': etats_new,
-        'initiaux': [0],
-        'terminaux': terminaux_new,
-        'transitions': transitions_new
-    }
+    return {'alphabet': alphabet, 'etats': etats_new, 'initiaux': [0], 'terminaux': terminaux_new,
+            'transitions': transitions_new}
