@@ -1,5 +1,7 @@
+import os
+
 def lire_automate(numero):
-    nom = f"automates/AF{int(numero):02d}.txt"
+    nom = os.path.join(os.path.dirname(__file__), "Automate", f"AF{int(numero):02d}.txt")
     with open(nom, 'r') as f:
         lignes = [l.strip() for l in f if l.strip()]
 
@@ -14,8 +16,13 @@ def lire_automate(numero):
 
     transitions = []
     for i in range(5, 5 + int(lignes[4])):
-        t = lignes[i].split()
-        transitions.append((int(t[0]), t[1], int(t[2])))
+        t = lignes[i].strip()
+        if ' ' in t:
+            parts = t.split()
+            transitions.append((int(parts[0]), parts[1], int(parts[2])))
+        else:
+            j = next(k for k, c in enumerate(t) if c.isalpha() or c == 'e')
+            transitions.append((int(t[:j]), t[j], int(t[j+1:])))
 
     return {
         'alphabet'   : alphabet,

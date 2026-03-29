@@ -28,3 +28,24 @@ def est_standard(A):
 def est_complet(A):
     # Complet si chaque état a exactement une transition par symbole
     for e in A['etats']:
+        for s in A['alphabet']:
+            nb = sum(1 for (dep, sym, arr) in A['transitions'] if dep == e and sym == s)
+            if nb == 0:
+                return False, f"Etat {e} n'a pas de transition par '{s}'"
+    return True, "Complet"
+
+
+def afficher_tests(A):
+    print("--- Tests ---")
+
+    det, msg = est_deterministe(A)
+    print(f"Deterministe : {'Oui' if det else 'Non - ' + msg}")
+
+    std, msg = est_standard(A)
+    print(f"Standard     : {'Oui' if std else 'Non - ' + msg}")
+
+    cpl, msg = est_complet(A)
+    print(f"Complet      : {'Oui' if cpl else 'Non - ' + msg}")
+    print()
+
+    return det, std, cpl
