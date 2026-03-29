@@ -1,0 +1,104 @@
+=== Traitement d'automates finis ===
+
+Numero d'automate (ou 'fin') : 37
+
+Alphabet : ['a', 'b']
+Etats    : [0, 1, 2, 3, 4]
+Initiaux : [0]
+Terminaux: [0, 1, 2, 3, 4]
+
+    Etat a   b
+---------------
+ES  0   1   3
+S   1   2   4
+S   2   --  0
+S   3   1   0
+S   4   1   --
+
+--- Tests ---
+Deterministe : Oui
+Standard     : Non - Une transition arrive sur l'état initial (0)
+Complet      : Non - Etat 2 n'a pas de transition par 'a'
+
+Voulez-vous standardiser ? (o/n) : o
+
+--- Automate standardise ---
+
+Alphabet : ['a', 'b']
+Etats    : [0, 1, 2, 3, 4, 5]
+Initiaux : [5]
+Terminaux: [0, 1, 2, 3, 4, 5]
+
+    Etat a   b
+---------------
+S   0   1   3
+S   1   2   4
+S   2   --  0
+S   3   1   0
+S   4   1   --
+ES  5   1   3
+
+
+--- Correspondance etats ---
+  Nouvel etat 0 = [5]
+  Nouvel etat 1 = [1]
+  Nouvel etat 2 = [3]
+  Nouvel etat 3 = [2]
+  Nouvel etat 4 = [4]
+  Nouvel etat 5 = [0]
+  Nouvel etat 6 = [Poubelle]
+
+--- Automate deterministe complet ---
+
+Alphabet : ['a', 'b']
+Etats    : [0, 1, 2, 3, 4, 5, 6]
+Initiaux : [0]
+Terminaux: [0, 1, 2, 3, 4, 5]
+
+    Etat a  b
+-------------
+ES  0   1  2
+S   1   3  4
+S   2   1  5
+S   3   6  5
+S   4   1  6
+S   5   1  2
+    6   6  6
+
+
+--- Minimisation ---
+Partition 0 : [[0, 1, 2, 3, 4, 5], [6]]
+Partition 1 : [[0, 1, 2, 5], [3], [4], [6]]
+Partition 2 : [[0, 2, 5], [1], [3], [4], [6]]
+Partition finale : [[0, 2, 5], [1], [3], [4], [6]]
+
+--- Correspondance etats minimaux ---
+  Etat 0 (minimal) = [0, 2, 5] (AFDC)
+  Etat 1 (minimal) = [1] (AFDC)
+  Etat 3 (minimal) = [3] (AFDC)
+  Etat 4 (minimal) = [4] (AFDC)
+  Etat 6 (minimal) = [6] (AFDC)
+--- Automate minimal ---
+
+Alphabet : ['a', 'b']
+Etats    : [0, 1, 3, 4, 6]
+Initiaux : [0]
+Terminaux: [0, 1, 3, 4]
+
+    Etat a  b
+-------------
+ES  0   1  0
+S   1   3  4
+S   3   6  0
+S   4   1  6
+    6   6  6
+
+
+--- Reconnaissance de mots (tapez 'fin' pour arreter) ---
+Mot : baba
+  Mot 'baba' : OUI
+Mot : ababa
+  Mot 'ababa' : OUI
+Mot : aaa
+  Mot 'aaa' : NON
+Mot :

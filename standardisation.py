@@ -1,4 +1,4 @@
-sdef standardiser(A):
+def standardiser(A):
     # Crée un nouvel état initial i qui n'existe pas encore
     nouvel_init = max(A['etats']) + 1
 
