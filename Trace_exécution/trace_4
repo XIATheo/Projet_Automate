@@ -1,0 +1,65 @@
+=== Traitement d'automates finis ===
+
+Numero d'automate (ou 'fin') : 4
+
+Alphabet : ['a']
+Etats    : [0, 1]
+Initiaux : [0]
+Terminaux: []
+
+    Etat a
+-----------
+E   0   1
+    1   --
+
+--- Tests ---
+Deterministe : Oui
+Standard     : Oui
+Complet      : Non - Etat 1 n'a pas de transition par 'a'
+
+
+--- Correspondance etats ---
+  Nouvel etat 0 = [0]
+  Nouvel etat 1 = [1]
+  Nouvel etat 2 = [Poubelle]
+
+--- Automate deterministe complet ---
+
+Alphabet : ['a']
+Etats    : [0, 1, 2]
+Initiaux : [0]
+Terminaux: []
+
+    Etat a
+----------
+E   0   1
+    1   2
+    2   2
+
+
+--- Minimisation ---
+Partition 0 : [[0, 1, 2]]
+Partition finale : [[0, 1, 2]]
+
+--- Correspondance etats minimaux ---
+  Etat 0 (minimal) = [0, 1, 2] (AFDC)
+--- Automate minimal ---
+
+Alphabet : ['a']
+Etats    : [0]
+Initiaux : [0]
+Terminaux: []
+
+    Etat a
+----------
+E   0   0
+
+
+--- Reconnaissance de mots (tapez 'fin' pour arreter) ---
+Mot : a
+  Mot 'a' : NON
+Mot : aa
+  Mot 'aa' : NON
+Mot : a
+  Mot 'a' : NON
+Mot :
